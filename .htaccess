@@ -1,0 +1,17 @@
+# File: /php-admin-panel/php-admin-panel/.htaccess
+
+Options -Indexes
+RewriteEngine On
+
+# Redirect to the login page if accessing the admin directory directly
+RewriteCond %{REQUEST_URI} ^/php-admin-panel/admin
+RewriteRule ^(.*)$ /php-admin-panel/admin/login.php [L]
+
+# Prevent direct access to sensitive files
+<FilesMatch "\.(php|ini|log)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+# Allow access to assets
+RewriteRule ^assets/(.*)$ assets/$1 [L]
