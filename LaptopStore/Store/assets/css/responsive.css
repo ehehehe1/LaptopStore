@@ -1,0 +1,334 @@
+@media screen and (max-width: 600px) {
+    .header {
+        width: 100%;
+	    margin: 0 auto;
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+        padding: 0 ;
+    }
+    .class1 {
+        margin: 5px auto;
+        padding-right: 8%;
+    }
+    .user {
+        margin: 0;
+    }
+    #user_photo {
+        padding-bottom: 10px;
+        width: 50px;
+        height: 60px;
+    }
+    #user_name {
+        margin: auto 5px;
+        padding-bottom: 5.5%;
+        font-size: 1.8rem;
+    }
+    #shopping__icon {
+        padding-bottom: 10px ;
+        font-size: 3rem;
+    }
+    .logo{
+        height: auto;
+        margin: 1.5% auto;
+    }
+    .logo_search {
+        height: 40px;
+        margin: 0 auto;
+    }
+    .box_search {
+        margin: 5px auto;
+    }
+    #list_menu {
+        display: none;
+    }
+    #menuMobile {
+        display: block;
+    }
+    #cart_container h1 {
+        line-height: 45px;
+    }
+    #menu {
+        top: 70%;
+        left: 10%;
+    }
+    .container-product {
+        display: flex;
+        flex-direction: column;
+    }
+    .card {
+        width: 95.5%;
+        height: 500px;
+    }
+    .card p {
+        font-size: 2rem;
+        line-height: 20px;
+    }
+    .card p .price {
+        font-size: 2rem;
+    }
+    #quanlitaikhoan div{
+        display: flex;
+        flex-direction: column;
+    }
+    #quanlitaikhoan div .title_info {
+        width: 98%;
+        height: 28px;
+    } 
+    #background_tk #quanlitaikhoan {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #background_tk #quanlitaikhoan div .user__info , #quanlitaikhoan div .user__info-change {
+        width: 98%;
+        margin-top: 1%;
+        display: flex;
+        height: 28px;
+        justify-content: center;
+    }
+    #background_tk #quanlitaikhoan div .change__button-info {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1.5%;
+    }
+    #background_tk #quanlitaikhoan #thongtintaikhoan #div__cover #btn_exit {
+        padding-top: 5px;
+    }
+    .footer_left, .footer_center , .footer_right
+    {
+        width: 100%;
+    }
+    .footer_center .footer_box 
+    {
+        margin-bottom: 20px;
+    }
+    .footer_right .footer_logo
+    {
+        margin-top: 10px;
+    }
+}
+
+@media screen  and (min-width: 601px) and (max-width: 900px) {
+    #menuMobile_list {
+        visibility: hidden;
+        position: absolute;
+    }
+    #list_menu {
+        display: block;
+    }
+    .btn_product {
+        margin-top: 15px;
+    }
+    .header {
+        width: 100%;
+	    margin: 0;
+        flex-direction: column;
+        height: auto;
+        align-items: center;
+    }
+    .class1 {
+        margin: 5px auto;
+    }
+    .user , .menuMobile{
+        margin: 0 10px;
+    }
+    .shopping {
+        margin: 0 5px;
+    }
+    #user_photo {
+        padding-bottom: 10px;
+        width: 50px;
+        height: 60px;
+    }
+    #user_name {
+        margin: auto 8px;
+        padding-bottom: 5.5%;
+        font-size: 1.8rem;
+    }
+    #shopping__icon {
+        padding-bottom: 10px ;
+        font-size: 3rem;
+    }
+    .logo{
+        height: auto;
+        margin: 1% auto;
+    }
+    .logo_search {
+        height: 35px;
+        margin: 0 auto;
+    }
+    .box_search {
+        margin: 5px auto;
+    }
+    .list_menu {
+        display: block;
+    }
+    #menuMobile {
+        display: none;
+    }
+    #cart_container h1 {
+        line-height: 45px;
+    }
+    #menu {
+        top: 70%;
+    }
+    .container-product {
+        display: flex;
+    }
+    .card {
+        width: 47.5%;
+        height: 400px;
+    }
+    .card p {
+        font-size: 1.8rem;
+        line-height: 20px;
+        margin-bottom: 1%;
+        margin-top: 4.5%;
+    }
+    .card p .price {
+        font-size: 1.8rem;
+    }
+    .class1 {
+        margin: 5px auto;
+    }
+    #nav_menu {
+        position: relative;
+        height: 30px;
+        margin: 0;
+        justify-content: center;
+        padding: 0;
+    }
+    #nav_menu li {
+      display: flex;
+      margin: 0 auto;
+    }
+    #nav_menu li a {
+        font-size: 1.7rem;
+    }
+    #quanlitaikhoan div{
+        display: flex;
+        flex-direction: column;
+    }
+    #quanlitaikhoan div .title_info {
+        width: 96%;
+        height: 28px;
+    } 
+    #background_tk #quanlitaikhoan {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #background_tk #quanlitaikhoan div .user__info , #quanlitaikhoan div .user__info-change {
+        width: 96%;
+        margin-top: 1%;
+        display: flex;
+        height: 28px;
+        justify-content: center;
+    }
+    #background_tk #quanlitaikhoan div .change__button-info {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 1%;
+    }
+    #background_tk #quanlitaikhoan #thongtintaikhoan #div__cover #btn_exit {
+        padding-top: 5px;
+    }
+    .footer_left, .footer_center , .footer_right
+    {
+        width: 100%;
+    }
+    .footer_center .footer_box 
+    {
+        margin-bottom: 20px;
+    }
+    .footer_right .footer_logo
+    {
+        margin-top: 10px;
+    }
+}
+
+@media screen  and (min-width: 901px) and (max-width: 1300px) {
+    #menuMobile_list {
+        visibility: hidden;
+        position: absolute;
+    }
+    #user_name {
+        width: 120px;
+        font-size: 1.6rem;
+        margin-right: 1.5%;
+    }
+    .container-product {
+        display: flex;
+    }
+    .card {
+        width: 31.6%;
+        height: 360px;
+    }
+    .name_product {
+        margin-bottom: 0;
+    }
+    .card p {
+        font-size: 1.5rem;
+        line-height: 20px;
+        margin-bottom: 0.2%;
+        margin-top: 3%;
+    }
+    .card .card_info .btn_product
+    {
+        margin-top: 25px;
+        height: 28px;
+        font-size: 14px;
+        line-height: 14px;
+    }
+    .card p .price {
+        font-size: 1.5rem;
+    }
+    #quanlitaikhoan div{
+        display: flex;
+        flex-direction: column;
+    }
+    #quanlitaikhoan div .title_info {
+        width: 95%;
+        height: 28px;
+    } 
+    #background_tk #quanlitaikhoan {
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+    }
+    #background_tk #quanlitaikhoan div .user__info , #quanlitaikhoan div .user__info-change {
+        width: 95%;
+        margin-top: 0.5%;
+        display: flex;
+        height: 28px;
+        justify-content: center;
+    }
+    #background_tk #quanlitaikhoan div .change__button-info {
+        width: 50%;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 0.5%;
+        padding-right: 5%;
+    }
+    #background_tk #quanlitaikhoan #thongtintaikhoan #div__cover #btn_exit {
+        padding-top: 5px;
+    }
+    
+}
+
+@media screen  and (min-width: 1301px) and (max-width: 2200px) {
+    #menuMobile_list {
+        visibility: hidden;
+        position: absolute;
+    }
+}
+
+.class1 {
+    display: flex;
+}
