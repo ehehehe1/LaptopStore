@@ -82,6 +82,26 @@ document.addEventListener("DOMContentLoaded", function () {
     if (toInput) toInput.addEventListener("change", findOrder);
 });
 
+document.addEventListener("click", function (e) {
+    const reloadBtn = e.target.closest(".btn-reset-order");
+    if (reloadBtn) {
+        console.log("✅ Đã bấm nút reset đơn hàng");
+
+        // Reset các input
+        const formSearch = document.getElementById("form-search-order");
+        const timeStart = document.getElementById("time-start");
+        const timeEnd = document.getElementById("time-end");
+        const tinhTrang = document.getElementById("tinh-trang");
+
+        if (formSearch) formSearch.value = "";
+        if (timeStart) timeStart.value = "";
+        if (timeEnd) timeEnd.value = "";
+        if (tinhTrang) tinhTrang.value = "all";
+
+        findOrder();
+    }
+});
+
 window.addEventListener("hashchange", handleHash);
 
 

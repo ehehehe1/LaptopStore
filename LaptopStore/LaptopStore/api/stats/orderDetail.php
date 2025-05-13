@@ -1,16 +1,17 @@
 <?php
 require_once '../../includes/connect.php';
-//Phúc
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['madh'])) {
-        // Lấy chi tiết sản phẩm trong đơn hàng theo MADH
         $madh = $_POST['madh'];
 
-        $sql = "SELECT dh.MADH, dh.NGAYDH, sp.TENSP, ct.SOLUONG, ct.THANHTIEN
+        $sql = "SELECT dh.MADH, dh.NGAYDH, dh.TRANGTHAI, t.HOTEN, t.DIACHI, t.SDT,
+                       sp.TENSP, ct.SOLUONG, ct.THANHTIEN
                 FROM donhang dh
                 JOIN ct_donhang ct ON dh.MADH = ct.MADH
                 JOIN ct_sanpham ctsp ON ct.MACTSP = ctsp.MACTSP
                 JOIN sanpham sp ON ctsp.MASP = sp.MASP
+                JOIN taikhoan t ON dh.MATK = t.MATK
                 WHERE dh.MADH = ?";
 
         $stmt = $conn->prepare($sql);
@@ -22,10 +23,28 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             exit;
         }
 
+        // Danh sách trạng thái đơn hàng
+        $orderStatuses = [
+            0 => 'Chờ xác nhận',
+            1 => 'Đã xác nhận',
+            2 => 'Đang giao hàng',
+            3 => 'Giao thành công',
+            4 => 'Đã hủy'
+        ];
+
         $orderDate = $items[0]['NGAYDH'];
+        $hoten = $items[0]['HOTEN'];
+        $diachi = $items[0]['DIACHI'];
+        $sdt = $items[0]['SDT'];
+        $trangthai = $orderStatuses[$items[0]['TRANGTHAI']] ?? 'Không xác định';
+        $tongTien = array_sum(array_column($items, 'THANHTIEN'));
         ?>
         <h2>Chi tiết đơn hàng: <strong><?= htmlspecialchars($madh) ?></strong></h2>
         <p><strong>Ngày đặt:</strong> <?= $orderDate ?></p>
+        <p><strong>Khách hàng:</strong> <?= htmlspecialchars($hoten) ?></p>
+        <p><strong>Số điện thoại:</strong> <?= htmlspecialchars($sdt) ?></p>
+        <p><strong>Địa chỉ:</strong> <?= htmlspecialchars($diachi) ?></p>
+        <p><strong>Trạng thái:</strong> <?= $trangthai ?></p>
 
         <table class="modal-table">
             <thead>
@@ -43,13 +62,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                         <td><?= number_format($item['THANHTIEN'], 0, ',', '.') ?> đ</td>
                     </tr>
                 <?php endforeach; ?>
+                <tr style="font-weight: bold; border-top: 1px solid #ccc;">
+                    <td colspan="2" style="text-align: right;">Tổng cộng:</td>
+                    <td><?= number_format($tongTien, 0, ',', '.') ?> đ</td>
+                </tr>
             </tbody>
         </table>
         <?php
         exit;
     }
 
-    // Trường hợp thống kê sản phẩm truyền vào TENSP
+    // Trường hợp xem tất cả đơn hàng của 1 sản phẩm
     if (isset($_POST['tensp'])) {
         $tensp = $_POST['tensp'];
 
