@@ -13,7 +13,7 @@ $matk = $_SESSION['user_id'];
 $stmt = $conn->prepare("SELECT SUM(ct.SOLUONG) AS count
                         FROM DONHANG dh
                         JOIN CT_DONHANG ct ON dh.MADH = ct.MADH
-                        WHERE dh.MATK = ? AND dh.TRANGTHAI = 0");
+                        WHERE dh.MATK = ? AND dh.TRANGTHAI = -1");
 $stmt->bind_param("s", $matk);
 $stmt->execute();
 $result = $stmt->get_result();

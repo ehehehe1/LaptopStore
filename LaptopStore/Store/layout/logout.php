@@ -6,6 +6,6 @@ session_unset();
 session_destroy();
 
 // Chuyển hướng về trang chủ
-header('Location: /LaptopStore/Store/index.php');
+header('Location: /LaptopStore-master/LaptopStore/Store/index.php');
 exit;
 ?>

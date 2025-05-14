@@ -2,12 +2,6 @@
 session_start();
 require 'db.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    echo json_encode(['success' => false, 'error' => 'Chưa đăng nhập']);
-    exit;
-}
-
 $matk = $_SESSION['user_id'];
 $madh = isset($_POST['madh']) ? trim($_POST['madh']) : '';
 

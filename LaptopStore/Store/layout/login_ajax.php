@@ -1,13 +1,9 @@
 <?php
-error_reporting(E_ALL);
-ini_set('display_errors', 1);
+
 header('Content-Type: application/json');
 session_start();
 require 'db.php';
 
-// Ghi log để gỡ lỗi
-error_log("Yêu cầu đăng nhập: " . print_r($_SERVER, true));
-error_log("Dữ liệu POST: " . print_r($_POST, true));
 
 // Kiểm tra phương thức yêu cầu
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {

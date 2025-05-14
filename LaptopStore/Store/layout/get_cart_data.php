@@ -21,7 +21,7 @@ if (empty($madh)) {
 }
 
 // Kiểm tra đơn hàng
-$stmt = $conn->prepare("SELECT TONGTIEN FROM DONHANG WHERE MADH = ? AND MATK = ? AND TRANGTHAI = 0");
+$stmt = $conn->prepare("SELECT TONGTIEN FROM DONHANG WHERE MADH = ? AND MATK = ? AND TRANGTHAI = -1");
 $stmt->bind_param("ss", $madh, $matk);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -39,7 +39,7 @@ $stmt = $conn->prepare("SELECT d.MADH, d.TONGTIEN, ct.MACTSP, ct.SOLUONG, ct.DON
                         JOIN CT_DONHANG ct ON d.MADH = ct.MADH 
                         JOIN CT_SANPHAM ctsp ON ct.MACTSP = ctsp.MACTSP 
                         JOIN SANPHAM s ON ctsp.MASP = s.MASP 
-                        WHERE d.MATK = ? AND d.TRANGTHAI = 0 AND d.MADH = ?");
+                        WHERE d.MATK = ? AND d.TRANGTHAI = -1 AND d.MADH = ?");
 $stmt->bind_param("ss", $matk, $madh);
 $stmt->execute();
 $result = $stmt->get_result();

@@ -1,10 +1,18 @@
 <?php
 session_start();
-require 'db.php';
-ob_start();
+require_once 'db.php';
+
+// Đảm bảo không có đầu ra trước JSON
+if (ob_get_length()) {
+    error_log("Unexpected output buffer: " . ob_get_contents());
+    ob_end_clean();
+}
+
+header('Content-Type: application/json');
+
 if (!isset($_SESSION['user_id'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    echo json_encode(['success' => false, 'error' => 'Chưa đăng nhập']);
+    http_response_code(401);
+    echo json_encode(['success' => false, 'error' => 'Vui lòng đăng nhập để xác nhận đơn hàng']);
     exit;
 }
 
@@ -12,6 +20,8 @@ $matk = $_SESSION['user_id'];
 $madh = isset($_POST['madh']) ? trim($_POST['madh']) : '';
 $diachi = isset($_POST['diachi']) ? trim($_POST['diachi']) : '';
 $phuongthuc = isset($_POST['phuongthuc']) ? trim($_POST['phuongthuc']) : '';
+
+error_log("POST data: " . print_r($_POST, true)); // Debug POST data
 
 $response = ['success' => false, 'error' => '', 'order' => []];
 
@@ -27,7 +37,13 @@ if (!empty($errors)) {
 }
 
 // Kiểm tra đơn hàng thuộc về người dùng và TRANGTHAI = 0
-$stmt = $conn->prepare("SELECT TONGTIEN FROM DONHANG WHERE MADH = ? AND MATK = ? AND TRANGTHAI = 0");
+$stmt = $conn->prepare("SELECT TONGTIEN FROM DONHANG WHERE MADH = ? AND MATK = ? AND TRANGTHAI = -1");
+if (!$stmt) {
+    $response['error'] = "Lỗi truy vấn cơ sở dữ liệu: " . $conn->error;
+    error_log("SQL prepare error: " . $conn->error);
+    echo json_encode($response);
+    exit;
+}
 $stmt->bind_param("ss", $madh, $matk);
 $stmt->execute();
 $order = $stmt->get_result()->fetch_assoc();
@@ -45,6 +61,12 @@ $stmt = $conn->prepare("SELECT ct.SOLUONG, ct.DONGIA, ct.THANHTIEN, s.TENSP, cts
                         JOIN CT_SANPHAM ctsp ON ct.MACTSP = ctsp.MACTSP 
                         JOIN SANPHAM s ON ctsp.MASP = s.MASP 
                         WHERE ct.MADH = ?");
+if (!$stmt) {
+    $response['error'] = "Lỗi truy vấn cơ sở dữ liệu: " . $conn->error;
+    error_log("SQL prepare error: " . $conn->error);
+    echo json_encode($response);
+    exit;
+}
 $stmt->bind_param("s", $madh);
 $stmt->execute();
 $items = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
@@ -54,23 +76,20 @@ $stmt->close();
 $conn->begin_transaction();
 try {
     // Cập nhật đơn hàng
-    $stmt = $conn->prepare("UPDATE DONHANG SET DIACHI = ?, PHUONGTHUC = ?, TRANGTHAI = 1 WHERE MADH = ? AND MATK = ?");
+    $stmt = $conn->prepare("UPDATE DONHANG SET DIACHI = ?, PHUONGTHUC = ?, TRANGTHAI = 0 WHERE MADH = ? AND MATK = ?");
+    if (!$stmt) {
+        throw new Exception("Lỗi chuẩn bị cập nhật đơn hàng: " . $conn->error);
+    }
     $stmt->bind_param("ssss", $diachi, $phuongthuc, $madh, $matk);
     if (!$stmt->execute()) {
         throw new Exception("Lỗi cập nhật đơn hàng: " . $stmt->error);
     }
     $stmt->close();
 
-    // Lưu phương thức thanh toán (giả lập)
-    $_SESSION['phuongthuc_thanh_toan'] = $phuongthuc;
-
     // Giả lập thanh toán trực tuyến
     if ($phuongthuc === 'online') {
         $_SESSION['thanh_toan_status'] = 'success';
     }
-
-    // Xóa giỏ hàng trong session
-    unset($_SESSION['cart']);
 
     // Commit transaction
     $conn->commit();
@@ -79,9 +98,9 @@ try {
     $response['success'] = true;
     $response['order'] = [
         'madh' => $madh,
-        'tongtien' => $order['TONGTIEN'],
-        'diachi' => $diachi,
-        'phuongthuc' => $phuongthuc,
+        'tongtien' => (int)$order['TONGTIEN'],
+        'diachi' => htmlspecialchars($diachi),
+        'phuongthuc' => htmlspecialchars($phuongthuc),
         'items' => array_map(function($item) {
             return [
                 'tensp' => htmlspecialchars($item['TENSP']),
@@ -98,10 +117,14 @@ try {
 } catch (Exception $e) {
     $conn->rollback();
     $response['error'] = $e->getMessage();
+    error_log("Transaction error: " . $e->getMessage());
+    echo json_encode($response);
+    exit;
 }
 
-header('Content-Type: application/json');
-echo json_encode($response);
-ob_end_clean();
+$json_response = json_encode($response);
+error_log("JSON length: " . strlen($json_response)); // Debug JSON length
+error_log("Response: " . $json_response); // Debug response
+echo $json_response;
 $conn->close();
 ?>

@@ -90,6 +90,22 @@ $defaultQty = $row_first['SOLUONG'];
             margin-bottom: 15px;
             text-align: left;
         }
+         .quantity-controls input[type="number"] {
+        width: 45px;
+        height: 30px;
+        font-size: 0.85rem;
+    }
+
+    .quantity-controls button {
+        width: 30px;
+        height: 30px;
+        font-size: 0.85rem;
+    }
+
+    button[type="submit"] {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
         label {
             display: block;
             margin-top: 10px;
@@ -118,16 +134,7 @@ $defaultQty = $row_first['SOLUONG'];
         button:hover {
             background: #0056b3;
         }
-        .quantity-controls {
-            display: flex;
-            align-items: center;
-            margin-top: 5px;
-        }
-        .quantity-controls button {
-            padding: 5px 12px;
-            font-size: 1.2rem;
-            margin: 0 5px;
-        }
+      
         .stock {
             margin-top: 10px;
             color: #333;
@@ -164,7 +171,7 @@ $defaultQty = $row_first['SOLUONG'];
 <body>
 <div class="detail">
     <div class="image-container">
-        <img src="/LaptopStore/Store/assets/img/product/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($name); ?>">
+        <img src="/LaptopStore-master/LaptopStore/Store/assets/img/product/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($name); ?>">
     </div>
     <div class="info-container">
         <h1><?php echo htmlspecialchars($name); ?></h1>
@@ -215,7 +222,7 @@ $defaultQty = $row_first['SOLUONG'];
                 <button type="button" id="increment">+</button>
             </div>
             
-            <button type="submit">Thêm vào giỏ hàng</button>
+            <button type="submit" >Thêm vào giỏ hàng</button>
         </form>
         <div id="cart-message" class="message" style="display: none;"></div>
     </div>
@@ -318,7 +325,7 @@ $(document).ready(function() {
         
         $.ajax({
             type: "POST",
-            url: "/LaptopStore/Store/layout/add_cart.php",
+            url: "/LaptopStore-master/LaptopStore/Store/layout/add_cart.php",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {
