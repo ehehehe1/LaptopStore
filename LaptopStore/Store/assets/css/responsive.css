@@ -1,4 +1,4 @@
-@media screen and (max-width: 600px) {
+/* @media screen and (max-width: 600px) {
     .header {
         width: 100%;
 	    margin: 0 auto;
@@ -39,12 +39,7 @@
     .box_search {
         margin: 5px auto;
     }
-    #list_menu {
-        display: none;
-    }
-    #menuMobile {
-        display: block;
-    }
+   
     #cart_container h1 {
         line-height: 45px;
     }
@@ -112,13 +107,8 @@
 }
 
 @media screen  and (min-width: 601px) and (max-width: 900px) {
-    #menuMobile_list {
-        visibility: hidden;
-        position: absolute;
-    }
-    #list_menu {
-        display: block;
-    }
+   
+    
     .btn_product {
         margin-top: 15px;
     }
@@ -163,12 +153,8 @@
     .box_search {
         margin: 5px auto;
     }
-    .list_menu {
-        display: block;
-    }
-    #menuMobile {
-        display: none;
-    }
+    
+    
     #cart_container h1 {
         line-height: 45px;
     }
@@ -253,10 +239,7 @@
 }
 
 @media screen  and (min-width: 901px) and (max-width: 1300px) {
-    #menuMobile_list {
-        visibility: hidden;
-        position: absolute;
-    }
+   
     #user_name {
         width: 120px;
         font-size: 1.6rem;
@@ -323,12 +306,9 @@
 }
 
 @media screen  and (min-width: 1301px) and (max-width: 2200px) {
-    #menuMobile_list {
-        visibility: hidden;
-        position: absolute;
-    }
+   
 }
 
 .class1 {
     display: flex;
-}
+} */

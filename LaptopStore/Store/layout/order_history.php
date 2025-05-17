@@ -6,10 +6,10 @@ require 'db.php';
 
 $matk = $_SESSION['user_id'];
 
-// Lấy danh sách đơn hàng đã mua (TRANGTHAI = 1)
+// Lấy danh sách đơn hàng đã mua 
 $stmt = $conn->prepare("SELECT MADH, TONGTIEN, NGAYDH, DIACHI, PHUONGTHUC 
                         FROM DONHANG 
-                        WHERE MATK = ? AND TRANGTHAI = 1 
+                        WHERE MATK = ? AND TRANGTHAI != -1
                         ORDER BY NGAYDH DESC");
 $stmt->bind_param("s", $matk);
 $stmt->execute();
@@ -162,7 +162,7 @@ $stmt->close();
     <h1>Lịch sử đơn hàng</h1>
     <?php if (empty($orders)): ?>
         <p class="no-orders">Bạn chưa có đơn hàng nào.</p>
-        <button onclick="window.location.href='/LaptopStore/Store/index.php'">Tiếp tục mua sắm</button>
+        <button onclick="window.location.href='/LaptopStore-master/LaptopStore/Store/index.php'">Tiếp tục mua sắm</button>
     <?php else: ?>
         <table>
             <tr>
@@ -201,7 +201,7 @@ $stmt->close();
 function showOrderDetails(madh) {
     $.ajax({
         type: 'POST',
-        url: '/LaptopStore/Store/layout/get_order_details.php',
+        url: '/LaptopStore-master/LaptopStore/Store/layout/get_order_details.php',
         data: { madh: madh },
         dataType: 'json',
         success: function(response) {

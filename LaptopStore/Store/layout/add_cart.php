@@ -4,15 +4,11 @@ require 'db.php';
 
 header('Content-Type: application/json');
 
-// Kiểm tra phương thức yêu cầu
-if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
-    echo json_encode(["success" => false, "error" => "Yêu cầu không hợp lệ."]);
-    exit;
-}
+
 
 // Kiểm tra đăng nhập
 if (!isset($_SESSION['user_id'])) {
-    echo json_encode(["success" => false, "error" => "Vui lòng đăng nhập để thêm vào giỏ hàng.", "redirect" => "/LaptopStore/Store/layout/login.php"]);
+    echo json_encode(["success" => false, "error" => "Vui lòng đăng nhập để thêm vào giỏ hàng."]);
     exit;
 }
 
@@ -23,14 +19,6 @@ $color = isset($_POST['color']) ? trim($_POST['color']) : '';
 $size = isset($_POST['size']) ? trim($_POST['size']) : '';
 $quantity = isset($_POST['quantity']) ? (int)$_POST['quantity'] : 0;
 
-// Kiểm tra dữ liệu đầu vào
-$errors = [];
-
-
-if (!empty($errors)) {
-    echo json_encode(["success" => false, "error" => implode("<br>", $errors)]);
-    exit;
-}
 
 // Bắt đầu transaction
 $conn->begin_transaction();
@@ -82,9 +70,9 @@ try {
     }
     $stmt->close();
 
-    // Kiểm tra xem người dùng đã có đơn hàng giỏ hàng (TRANGTHAI = 0) chưa
+    // Kiểm tra xem người dùng đã có đơn hàng trong giỏ hàng (TRANGTHAI = -1) chưa
     $matk = $_SESSION['user_id'];
-    $stmt = $conn->prepare("SELECT MADH FROM DONHANG WHERE MATK = ? AND TRANGTHAI = 0");
+    $stmt = $conn->prepare("SELECT MADH FROM DONHANG WHERE MATK = ? AND TRANGTHAI = -1");
     if (!$stmt) {
         throw new Exception("Lỗi chuẩn bị truy vấn DONHANG: " . $conn->error);
     }
@@ -110,7 +98,7 @@ try {
         $ngaydh = date('Y-m-d H:i:s');
         $tongtien = 0;
         $diachi = '';
-        $trangthai = 0;
+        $trangthai = -1;
 
         $stmt = $conn->prepare("INSERT INTO DONHANG (MADH, MATK, TONGTIEN, NGAYDH, DIACHI, TRANGTHAI) VALUES (?, ?, ?, NOW(), ?, ?)");
         if (!$stmt) {
@@ -168,37 +156,13 @@ try {
     }
     $stmt->close();
 
-    
-
-    // Cập nhật giỏ hàng trong session
-    // if (!isset($_SESSION['cart'])) {
-    //     $_SESSION['cart'] = [];
-    // }
-
-    // $cart_key = $masp . '_' . $spec . '_' . $color . '_' . $size;
-    // if (isset($_SESSION['cart'][$cart_key])) {
-    //     $_SESSION['cart'][$cart_key]['quantity'] += $quantity;
-    // } else {
-    //     $_SESSION['cart'][$cart_key] = [
-    //         'masp' => $masp,
-    //         'mactsp' => $mactsp,
-    //         'spec' => $spec,
-    //         'color' => $color,
-    //         'size' => $size,
-    //         'quantity' => $quantity,
-    //         'price' => $product['GIABAN'],
-    //         'name' => $product['TENSP']
-    //     ];
-    // }
-
-    // Commit transaction
     $conn->commit();
 
     // Trả về phản hồi
     echo json_encode([
         "success" => true,
         "message" => "Thêm vào giỏ hàng thành công!",
-        "redirect" => "/LaptopStore/Store/layout/cart.php"
+        "redirect" => "/LaptopStore-master/LaptopStore/Store/layout/cart.php"
     ]);
 
 } catch (Exception $e) {

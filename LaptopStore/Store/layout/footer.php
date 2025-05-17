@@ -15,8 +15,8 @@
                         <img style="width: 100%;" src="assets/img/local.png" alt="logomap">
                     </div>
                     <div class="container-contact">
-                        <p class="title_contact">Local</p>
-                        <p class="content_contact">99 An Dương Vương, P.16, Q.8, Hồ Chí Minh</p>
+                        <p class="title_contact"> P.16, Q.8, Hồ Chí Minh</p>
+                      
                     </div>
                 </div>
                 <div class="footer_box">
@@ -24,21 +24,18 @@
                         <img style="width: 100%;" src="assets/img/phone.png" alt="logophone">
                     </div>
                     <div class="container-contact">
-                        <p class="title_contact">Hotline</p>
-                        <p class="content_contact">1900.123456 - 0862616311</p>
-                        <p style="margin-top: -10px;">(7:30 - 22:00)</p>
+                        <p class="title_contact">1900.123456</p>
                     </div>
-                    
                 </div>
+
                 <div class="footer_box">
                     <div class="imglogo">
                         <img style="width: 100%;" src="assets/img/email.png" alt="logoemail">
                     </div>
                     <div class="container-contact">
-                        <p class="title_contact">Email</p>
-                        <p class="content_contact">cool@gmail.com</p>
+                        <p class="title_contact">Email cool@gmail.com</p>
+                        
                     </div>
-                    
                 </div>
             </div>
             <div class="footer_right">

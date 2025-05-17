@@ -135,11 +135,10 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 <script>
 $(document).ready(function() {
-    $('#login-form').on('submit', function(event) {
-        event.preventDefault();
+    $('#login-form').on('submit', function(event) {        event.preventDefault();
         var isValid = true;
 
         var Username_login = $('#loginUsername').val().trim();
@@ -163,7 +162,7 @@ $(document).ready(function() {
         if (isValid) {
             $.ajax({
                 type: "POST",
-                url: "/LaptopStore/Store/layout/login_ajax.php",
+                url: "/LaptopStore-master/LaptopStore/Store/layout/login_ajax.php",
                 data: {
                     loginUsername: Username_login,
                     loginPassword: Pass_login
@@ -173,7 +172,7 @@ $(document).ready(function() {
                     var messageDiv = $('#message');
                     if (response.success) {
                         messageDiv.html('<p class="success">' + response.message + '</p>');
-                        setTimeout(function() { window.location.href = '/LaptopStore/Store/index.php'; }, 2000);
+                        setTimeout(function() { window.location.href = '/LaptopStore-master/LaptopStore/Store/index.php'; }, 2000);
                     } else {
                         messageDiv.html('<p class="error">' + response.error + '</p>');
                     }

@@ -6,10 +6,7 @@ require 'db.php';
 
 header('Content-Type: application/json');
 
-if (!isset($_SESSION['user_id'])) {
-    echo json_encode(["success" => false, "error" => "Vui lòng đăng nhập."]);
-    exit;
-}
+
 
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["success" => false, "error" => "Yêu cầu không hợp lệ."]);
@@ -22,8 +19,6 @@ $mactsp = isset($_POST['mactsp']) ? trim($_POST['mactsp']) : '';
 
 // Kiểm tra dữ liệu đầu vào
 $errors = [];
-if (empty($madh)) $errors[] = "Mã đơn hàng không được để trống.";
-if (empty($mactsp)) $errors[] = "Mã chi tiết sản phẩm không được để trống.";
 
 if (!empty($errors)) {
     echo json_encode(["success" => false, "error" => implode("<br>", $errors)]);
@@ -35,7 +30,7 @@ $conn->begin_transaction();
 
 try {
     // Kiểm tra đơn hàng
-    $stmt = $conn->prepare("SELECT MATK FROM DONHANG WHERE MADH = ? AND TRANGTHAI = 0");
+    $stmt = $conn->prepare("SELECT MATK FROM DONHANG WHERE MADH = ? AND TRANGTHAI = -1");
     $stmt->bind_param("s", $madh);
     $stmt->execute();
     $result = $stmt->get_result();

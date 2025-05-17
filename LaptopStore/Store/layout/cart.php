@@ -4,10 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
 }
 require 'db.php';
 
-if (!isset($_SESSION['user_id'])) {
-    header("Location: /LaptopStore/Store/layout/login.php");
-    exit;
-}
+
 
 $matk = $_SESSION['user_id'];
 
@@ -18,13 +15,13 @@ $stmt->execute();
 $user = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
-// Lấy đơn hàng giỏ hàng (TRANGTHAI = 0)
+// Lấy đơn hàng giỏ hàng (TRANGTHAI = -1)
 $stmt = $conn->prepare("SELECT d.MADH, d.TONGTIEN, ct.MACTSP, ct.SOLUONG, ct.DONGIA, ct.THANHTIEN, s.TENSP, ctsp.THONGSO, ctsp.MAU, ctsp.SIZE, ctsp.MASP 
                         FROM DONHANG d 
                         JOIN CT_DONHANG ct ON d.MADH = ct.MADH 
                         JOIN CT_SANPHAM ctsp ON ct.MACTSP = ctsp.MACTSP 
                         JOIN SANPHAM s ON ctsp.MASP = s.MASP 
-                        WHERE d.MATK = ? AND d.TRANGTHAI = 0");
+                        WHERE d.MATK = ? AND d.TRANGTHAI = -1");
 $stmt->bind_param("s", $matk);
 $stmt->execute();
 $result = $stmt->get_result();
@@ -259,7 +256,7 @@ $stmt->close();
     <h1>Giỏ hàng của bạn</h1>
     <div id="cart-error" class="error" style="display: none;"></div>
     <?php if (empty($cart_items)): ?>
-        <p class="empty-cart">Giỏ hàng trống. <a href="/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
+        <p class="empty-cart">Giỏ hàng trống. <a href="/LaptopStore-master/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
     <?php else: ?>
         <table id="cart-table">
             <tr>
@@ -297,7 +294,7 @@ $stmt->close();
             Tổng cộng: <span id="cart-total"><?php echo number_format($total, 0, ',', '.'); ?></span> đ
         </div>
         <button id="checkout-btn">Thanh toán</button>
-        <p><a href="/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
+        <p><a href="/LaptopStore-master/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
     <?php endif; ?>
 </div>
 
@@ -368,7 +365,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/LaptopStore/Store/layout/update_cart.php',
+            url: '/LaptopStore-master/LaptopStore/Store/layout/update_cart.php',
             data: {
                 madh: '<?php echo htmlspecialchars($madh); ?>',
                 mactsp: mactsp,
@@ -404,7 +401,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/LaptopStore/Store/layout/delete_cart_item.php',
+            url: '/LaptopStore-master/LaptopStore/Store/layout/delete_cart_item.php',
             data: {
                 madh: '<?php echo htmlspecialchars($madh); ?>',
                 mactsp: mactsp
@@ -421,7 +418,7 @@ $(document).ready(function() {
                     if ($('#cart-table tr').length <= 1) {
                         $('.cart').html(`
                             <h1>Giỏ hàng của bạn</h1>
-                            <p class="empty-cart">Giỏ hàng trống. <a href="/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
+                            <p class="empty-cart">Giỏ hàng trống. <a href="/LaptopStore-master/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
                         `);
                     }
                     $('#cart-error').hide();
@@ -448,7 +445,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: 'POST',
-            url: '/LaptopStore/Store/layout/process_checkout.php',
+            url: '/LaptopStore-master/LaptopStore/Store/layout/process_checkout.php',
             data: formData + '&madh=<?php echo htmlspecialchars($madh); ?>',
             dataType: 'json',
             success: function(response) {
@@ -490,12 +487,12 @@ $(document).ready(function() {
                     html += `
                         </table>
                         <div class="total">Tổng cộng: ${Number(response.order.tongtien).toLocaleString('vi-VN')} đ</div>
-                        <button onclick="window.location.href='/LaptopStore/Store/index.php'">Tiếp tục mua sắm</button>
+                        <button onclick="window.location.href='/LaptopStore-master/LaptopStore/Store/index.php'">Tiếp tục mua sắm</button>
                     `;
                     $('#confirmation-content').html(html);
                     $('.cart').html(`
                         <h1>Giỏ hàng của bạn</h1>
-                        <p class="empty-cart">Giỏ hàng trống. <a href="/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
+                        <p class="empty-cart">Giỏ hàng trống. <a href="/LaptopStore-master/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
                     `);
                 } else {
                     $('#confirmation-modal').hide();
@@ -532,7 +529,7 @@ function showCheckoutModal() {
     // Lấy dữ liệu giỏ hàng từ CSDL
     $.ajax({
         type: 'POST',
-        url: '/LaptopStore/Store/layout/get_cart_data.php',
+        url: '/LaptopStore-master/LaptopStore/Store/layout/get_cart_data.php',
         data: { madh: '<?php echo htmlspecialchars($madh); ?>' },
         dataType: 'json',
         success: function(response) {
@@ -588,8 +585,9 @@ function closeCheckoutModal() {
 function closeConfirmationModal() {
     $('#confirmation-modal').hide();
     $('#confirmation-overlay').hide();
-    window.location.href = '/LaptopStore/Store/index.php';
+    window.location.href = '/LaptopStore-master/LaptopStore/Store/index.php';
 }
+
 </script>
 </body>
 </html>

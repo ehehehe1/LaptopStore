@@ -76,7 +76,7 @@
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<script src="https://kit.fontawesome.com/a076d05399.js"></script>
+
 <script>
 function isValidPhone(phone) {
     var phoneRegex = /^0[0-9]{9}$/;
@@ -154,7 +154,7 @@ $(document).ready(function() {
         if (isValid) {
             $.ajax({
                 type: "POST",
-                url: "/LaptopStore/Store/layout/register_ajax.php",
+                url: "/LaptopStore-master/LaptopStore/Store/layout/register_ajax.php",
                 data: {
                     registerUsername: Username_reg,
                     registerName: Name_reg,
@@ -168,7 +168,7 @@ $(document).ready(function() {
                     var messageDiv = $('#message');
                     if (response.success) {
                         messageDiv.html('<p class="success">' + response.message + '</p>');
-                        setTimeout(function() { window.location.href = '/LaptopStore/Store/layout/login.php'; }, 2000);
+                        setTimeout(function() { window.location.href = '/LaptopStore-master/LaptopStore/Store/layout/login.php'; }, 2000);
                     } else {
                         messageDiv.html('<p class="error">' + response.error + '</p>');
                     }

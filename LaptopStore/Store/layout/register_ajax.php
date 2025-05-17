@@ -14,6 +14,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(["success" => false, "error" => "Yêu cầu không hợp lệ. Phương thức: " . $_SERVER['REQUEST_METHOD']]);
     exit;
 }
+$sql = "SELECT COUNT(*) AS total FROM TAIKHOAN";
+$result = $conn->query($sql);
+$row = $result->fetch_assoc();
+$totalAccounts = $row['total'] + 1; // Tăng số lượng lên 1
 
 // Lấy dữ liệu từ form
 $TENDANGNHAP = isset($_POST['registerUsername']) ? trim($_POST['registerUsername']) : '';
@@ -22,9 +26,9 @@ $EMAIL       = isset($_POST['registerEmail']) ? trim($_POST['registerEmail']) : 
 $SDT         = isset($_POST['registerPhone']) ? trim($_POST['registerPhone']) : '';
 $DIACHI      = isset($_POST['registerAddress']) ? trim($_POST['registerAddress']) : '';
 $MATKHAU     = isset($_POST['registerPassword']) ? $_POST['registerPassword'] : '';
-$MACV        = "CV001"; // Mặc định quyền user
+$MACV        = "CV004"; // Mặc định quyền user
 $TRANGTHAI   = 1; // Hoạt động
-$MATK        = "TK" . time(); // Mã tài khoản duy nhất
+$MATK = "TK" . str_pad($totalAccounts, 3, '0', STR_PAD_LEFT);
 
 // Kiểm tra dữ liệu đầu vào
 $errors = [];

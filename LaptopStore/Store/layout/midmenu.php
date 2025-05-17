@@ -1,6 +1,11 @@
 
 <div id="containter_shop">
-    <div class="container_main">
+     <!-- <div class="container_slideshow">
+                <img class="slideshow" src="/LaptopStore-master/LaptopStore/Store/assets/img/slideshow3.webp" alt="slide1" style="width: 100%; height: 100%;"> 
+                <img class="slideshow" src="/LaptopStore-master/LaptopStore/Store/assets/img/slideshow2.webp" alt="slide2" style="width: 100%; height: 100%;"> 
+                <img class="slideshow" src="/LaptopStore-master/LaptopStore/Store/assets/img/slideshow1.webp" alt="slide3" style="width: 100%; height: 100%;">
+            </div>
+    <div class="container_main"> -->
         <div class="content-wrapper">
             <?php
                     $page = isset($_GET["page"]) ? $_GET["page"] : "home";

@@ -16,9 +16,9 @@ $result = $conn->query($sql);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sản phẩm</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link type="text/css" rel="stylesheet" href="/LaptopStore/Store/assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="/LaptopStore-master/LaptopStore/Store/assets/css/style.css">
     <style>
         .container {
             max-width: 1200px;
@@ -71,34 +71,6 @@ $result = $conn->query($sql);
         }
         .main-content {
             flex: 1;
-        }
-        .list_menu {
-            margin-bottom: 20px;
-            background: #f8f9fa;
-            padding: 10px 0;
-        }
-        #nav_menu {
-            list-style: none;
-            display: flex;
-            justify-content: center;
-            margin: 0;
-            padding: 0;
-        }
-        #nav_menu li {
-            margin: 0 15px;
-        }
-        #nav_menu li a {
-            text-decoration: none;
-            color: #333;
-            font-weight: 500;
-            padding: 10px 15px;
-            display: block;
-            transition: background 0.3s;
-        }
-        #nav_menu li a:hover, #nav_menu li a.active {
-            background: #007bff;
-            color: #fff;
-            border-radius: 4px;
         }
         .filter {
             margin-bottom: 20px;
@@ -314,10 +286,10 @@ $result = $conn->query($sql);
         <div class="product-list" id="product-container">
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                    <a href="/LaptopStore/Store/layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" 
+                    <a href="/LaptopStore-master/LaptopStore/Store/layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" 
                        class="product-link" style="text-decoration: none; color: inherit;">
                         <div class="product">
-                            <img src="<?php echo htmlspecialchars($row['IMG'] ? '/LaptopStore/Store/assets/img/product/' . $row['IMG'] : '/LaptopStore/Store/assets/img/product/default-product.jpg'); ?>" 
+                            <img src="<?php echo htmlspecialchars($row['IMG'] ? '/LaptopStore-master/LaptopStore/Store/assets/img/product/' . $row['IMG'] : '/LaptopStore-master/LaptopStore/Store/assets/img/product/default-product.jpg'); ?>" 
                                  alt="<?php echo htmlspecialchars($row['TENSP']); ?>" loading="lazy">
                             <p><?php echo htmlspecialchars($row['TENSP']); ?></p>
                             <p class="price"><?php echo number_format($row['GIABAN'], 0, ',', '.'); ?> đ</p>
@@ -342,64 +314,113 @@ $result = $conn->query($sql);
 <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script>
+// $(document).ready(function() {
+//     // Tìm kiếm thời gian thực khi nhập
+//     let timeout;
+//     $('#search').on('keyup', function() {
+//         clearTimeout(timeout);
+//         timeout = setTimeout(() => {
+//             applyFilters(1);
+//         }, 300);
+//     });
+
+//     // Hàm áp dụng bộ lọc và tìm kiếm
+//     window.applyFilters = function(page) {
+//         var query = $('#search').val();
+//         var price = $('#filter-price').val();
+//         var type = $('#filter-type').val() || $('#nav_menu li a.active').data('type') || '';
+//         var $results = $('#product-container').empty();
+//         var $loading = $('#loading').show();
+
+//         $.ajax({
+//             type: 'POST',
+//             url: '/LaptopStore-master/LaptopStore/Store/layout/search.php',
+//             data: {
+//                 query: query,
+//                 price: price,
+//                 type: type,
+//                 page: page,
+//                 paginate: true
+//             },
+//             dataType: 'json',
+//             success: function(response) {
+//                 $loading.hide();
+//                 if (response.success && response.products.length > 0) {
+//                     $('#product-container').html(response.html);
+//                     $('#pagination').html(response.pagination);
+//                 } else {
+//                     $results.append('<p>Không tìm thấy sản phẩm nào.</p>');
+//                     $('#pagination').hide();
+//                 }
+//             },
+//             error: function(xhr) {
+//                 $loading.hide();
+//                 $results.html('<p>Lỗi: ' + xhr.responseText + '</p>');
+//                 $('#pagination').hide();
+//                 Swal.fire({
+//                     icon: 'error',
+//                     title: 'Lỗi server',
+//                     text: 'Lỗi: ' + xhr.responseText
+//                 });
+//             }
+//         });
+//     };
+
 $(document).ready(function() {
-    // Tìm kiếm thời gian thực khi nhập
-    let timeout;
-    $('#search').on('keyup', function() {
-        clearTimeout(timeout);
-        timeout = setTimeout(() => {
-            applyFilters(1);
-        }, 300);
-    });
-
-    // Hàm áp dụng bộ lọc và tìm kiếm
-    window.applyFilters = function(page) {
-        var query = $('#search').val();
-        var price = $('#filter-price').val();
-        var type = $('#filter-type').val() || $('#nav_menu li a.active').data('type') || '';
-        var $results = $('#product-container').empty();
-        var $loading = $('#loading').show();
-
-        $.ajax({
-            type: 'POST',
-            url: '/LaptopStore/Store/layout/search.php',
-            data: {
-                query: query,
-                price: price,
-                type: type,
-                page: page,
-                paginate: true
-            },
-            dataType: 'json',
-            success: function(response) {
-                $loading.hide();
-                if (response.success && response.products.length > 0) {
-                    $('#product-container').html(response.html);
-                    $('#pagination').html(response.pagination);
-                } else {
-                    $results.append('<p>Không tìm thấy sản phẩm nào.</p>');
-                    $('#pagination').hide();
-                }
-            },
-            error: function(xhr) {
-                $loading.hide();
-                $results.html('<p>Lỗi: ' + xhr.responseText + '</p>');
-                $('#pagination').hide();
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Lỗi server',
-                    text: 'Lỗi: ' + xhr.responseText
-                });
-            }
+        // Tìm kiếm thời gian thực khi nhập
+        let timeout;
+        $('#search').on('keyup', function() {
+            clearTimeout(timeout);
+            timeout = setTimeout(() => {
+                applyFilters(1); // Luôn gọi page 1
+            }, 300);
         });
-    };
 
+        // Hàm áp dụng bộ lọc và tìm kiếm (không phân trang)
+        window.applyFilters = function(page) {
+            var query = $('#search').val();
+            var price = $('#filter-price').val();
+            var type = $('#filter-type').val() || $('#nav_menu li a.active').data('type') || '';
+            var $results = $('#product-container').empty();
+            var $loading = $('#loading').show();
+            $('#pagination').empty(); // Ẩn phân trang
+
+            $.ajax({
+                type: 'POST',
+                url: '/LaptopStore-master/LaptopStore/Store/layout/search.php',
+                data: {
+                    query: query,
+                    price: price,
+                    type: type,
+                    page: 1, // Luôn page 1
+                    paginate: false // Không phân trang
+                },
+                dataType: 'json',
+                success: function(response) {
+                    $loading.hide();
+                    if (response.success && response.products.length > 0) {
+                        $('#product-container').html(response.html);
+                    } else {
+                        $results.append('<p>Không tìm thấy sản phẩm nào.</p>');
+                    }
+                },
+                error: function(xhr) {
+                    $loading.hide();
+                    $results.html('<p>Lỗi: ' + xhr.responseText + '</p>');
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Lỗi server',
+                        text: 'Lỗi: ' + xhr.responseText
+                    });
+                }
+            });
+        };
     // Hàm xử lý click menu loại sản phẩm
     window.showproductMenu = function(type) {
         console.log('Filtering products for type:', type);
         $.ajax({
             type: 'POST',
-            url: '/LaptopStore/Store/layout/fetch_products.php',
+            url: '/LaptopStore-master/LaptopStore/Store/layout/fetch_products.php',
             data: {
                 type: type,
                 page: 1,
@@ -457,7 +478,7 @@ $(document).ready(function() {
         } else {
             $.ajax({
                 type: 'POST',
-                url: '/LaptopStore/Store/layout/fetch_products.php',
+                url: '/LaptopStore-master/LaptopStore/Store/layout/fetch_products.php',
                 data: {
                     type: type,
                     page: page,
