@@ -1488,3 +1488,139 @@ label a {
     z-index: 2000;
     /* cao hơn top5-modal */
 }
+
+/* Product  */
+/* Dùng chung cho cả modal thêm + sửa */
+.modal-product .modal-content {
+    padding: 20px;
+    border-radius: 10px;
+    background: white;
+    max-width: 700px;
+    margin: auto;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.modal-product form {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+}
+
+.modal-product form h3 {
+    grid-column: span 2;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.modal-product input,
+.modal-product select,
+.modal-product textarea,
+.modal-product button {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+.modal-product button[type="submit"] {
+    background-color: var(--red);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    grid-column: span 2;
+    transition: background 0.2s ease-in-out;
+}
+
+.modal-product button[type="submit"]:hover {
+    background-color: #a52329;
+}
+
+.modal-product .form-pair {
+    grid-column: span 2;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+}
+
+.modal-product textarea {
+    resize: none;
+    height: 100%;
+}
+
+.modal-product .upload-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.modal-product .upload-group label {
+    padding: 10px 16px;
+    background-color: var(--red);
+    color: white;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 8px;
+}
+
+.modal-product .upload-group input[type="file"] {
+    display: none;
+}
+
+.modal-product .upload-group img {
+    width: 120px;
+    height: auto;
+    border-radius: 10px;
+    box-shadow: 0 0 5px rgba(0,0,0,0.1);
+    margin-top: 10px;
+}
+
+/* toast  */
+#toast {
+    position: fixed;
+    top: 24px;
+    right: 24px;
+    z-index: 9999;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+#toast > div {
+    background-color: #222;
+    color: white;
+    padding: 16px 24px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 12px;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+    max-width: 360px;
+    animation: fadeSlideIn 0.3s ease forwards;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    line-height: 1.4;
+}
+
+@keyframes fadeSlideIn {
+    from {
+        opacity: 0;
+        transform: translateX(50%);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+
+
+
+
+
+
+

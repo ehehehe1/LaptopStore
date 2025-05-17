@@ -6,7 +6,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $madh = $_POST['madh'];
 
         $sql = "SELECT dh.MADH, dh.NGAYDH, dh.TRANGTHAI, t.HOTEN, t.DIACHI, t.SDT,
-                       sp.TENSP, ct.SOLUONG, ct.THANHTIEN
+                        sp.TENSP, ct.SOLUONG, ct.THANHTIEN
                 FROM donhang dh
                 JOIN ct_donhang ct ON dh.MADH = ct.MADH
                 JOIN ct_sanpham ctsp ON ct.MACTSP = ctsp.MACTSP
