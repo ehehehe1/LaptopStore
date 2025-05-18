@@ -27,7 +27,10 @@ $SDT         = isset($_POST['registerPhone']) ? trim($_POST['registerPhone']) : 
 $DIACHI      = isset($_POST['registerAddress']) ? trim($_POST['registerAddress']) : '';
 $MATKHAU     = isset($_POST['registerPassword']) ? $_POST['registerPassword'] : '';
 $MACV        = "CV004"; // Mặc định quyền user
+
 $TRANGTHAI   = 1; // Hoạt động
+
+
 $MATK = "TK" . str_pad($totalAccounts, 3, '0', STR_PAD_LEFT);
 
 // Kiểm tra dữ liệu đầu vào
