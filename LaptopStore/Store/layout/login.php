@@ -162,7 +162,7 @@ $(document).ready(function() {
         if (isValid) {
             $.ajax({
                 type: "POST",
-                url: "/LaptopStore-master/LaptopStore/Store/layout/login_ajax.php",
+                url: "login_ajax.php",
                 data: {
                     loginUsername: Username_login,
                     loginPassword: Pass_login
@@ -172,7 +172,7 @@ $(document).ready(function() {
                     var messageDiv = $('#message');
                     if (response.success) {
                         messageDiv.html('<p class="success">' + response.message + '</p>');
-                        setTimeout(function() { window.location.href = '/LaptopStore-master/LaptopStore/Store/index.php'; }, 2000);
+                        setTimeout(function() { window.location.href = '../index.php'; }, 2000);
                     } else {
                         messageDiv.html('<p class="error">' + response.error + '</p>');
                     }

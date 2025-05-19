@@ -18,7 +18,7 @@ $result = $conn->query($sql);
     <title>Danh sách sản phẩm</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link type="text/css" rel="stylesheet" href="/LaptopStore-master/LaptopStore/Store/assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="../assets/css/style.css">
     <style>
         .container {
             max-width: 1200px;
@@ -286,10 +286,12 @@ $result = $conn->query($sql);
         <div class="product-list" id="product-container">
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
-                    <a href="/LaptopStore-master/LaptopStore/Store/layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" 
+
+                    <a href="layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" 
+
                        class="product-link" style="text-decoration: none; color: inherit;">
                         <div class="product">
-                            <img src="<?php echo htmlspecialchars($row['IMG'] ? '/LaptopStore-master/LaptopStore/Store/assets/img/product/' . $row['IMG'] : '/LaptopStore-master/LaptopStore/Store/assets/img/product/default-product.jpg'); ?>" 
+                            <img src="<?php echo htmlspecialchars($row['IMG'] ? '../assets/img/product/' . $row['IMG'] : '../assets/img/product/default-product.jpg'); ?>" 
                                  alt="<?php echo htmlspecialchars($row['TENSP']); ?>" loading="lazy">
                             <p><?php echo htmlspecialchars($row['TENSP']); ?></p>
                             <p class="price"><?php echo number_format($row['GIABAN'], 0, ',', '.'); ?> đ</p>
@@ -387,7 +389,7 @@ $(document).ready(function() {
 
             $.ajax({
                 type: 'POST',
-                url: '/LaptopStore-master/LaptopStore/Store/layout/search.php',
+                url: 'search.php',
                 data: {
                     query: query,
                     price: price,
@@ -420,7 +422,8 @@ $(document).ready(function() {
         console.log('Filtering products for type:', type);
         $.ajax({
             type: 'POST',
-            url: '/LaptopStore-master/LaptopStore/Store/layout/fetch_products.php',
+            url: 'layout/fetch_products.php',
+
             data: {
                 type: type,
                 page: 1,
@@ -478,7 +481,8 @@ $(document).ready(function() {
         } else {
             $.ajax({
                 type: 'POST',
-                url: '/LaptopStore-master/LaptopStore/Store/layout/fetch_products.php',
+                url: 'layout/fetch_products.php',
+
                 data: {
                     type: type,
                     page: page,

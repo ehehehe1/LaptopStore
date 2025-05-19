@@ -171,7 +171,7 @@ $defaultQty = $row_first['SOLUONG'];
 <body>
 <div class="detail">
     <div class="image-container">
-        <img src="/LaptopStore-master/LaptopStore/Store/assets/img/product/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($name); ?>">
+        <img src="../assets/img/product/<?php echo htmlspecialchars($image); ?>" alt="<?php echo htmlspecialchars($name); ?>">
     </div>
     <div class="info-container">
         <h1><?php echo htmlspecialchars($name); ?></h1>
@@ -325,7 +325,7 @@ $(document).ready(function() {
         
         $.ajax({
             type: "POST",
-            url: "/LaptopStore-master/LaptopStore/Store/layout/add_cart.php",
+            url: "add_cart.php",
             data: $(this).serialize(),
             dataType: "json",
             success: function(response) {

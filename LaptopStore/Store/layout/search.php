@@ -68,9 +68,11 @@ try {
         $html = '';
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
-                $imageSrc = $row['IMG'] ? '/LaptopStore-master/LaptopStore/Store/assets/img/product/' . htmlspecialchars($row['IMG']) : '/LaptopStore-master/LaptopStore/Store/assets/img/product/default-product.jpg';
+                $imageSrc = $row['IMG'] ? '../assets/img/product/' . htmlspecialchars($row['IMG']) : '../assets/img/product/default-product.jpg';
                 $html .= '
-                    <a href="/LaptopStore-master/LaptopStore/Store/layout/chitietsp.php?masp=' . htmlspecialchars($row['MASP']) . '" class="product-link" style="text-decoration: none; color: inherit;">
+
+                    <a href="layout/chitietsp.php?masp=' . htmlspecialchars($row['MASP']) . '" class="product-link" style="text-decoration: none; color: inherit;">
+
                         <div class="product">
                             <img src="' . $imageSrc . '" alt="' . htmlspecialchars($row['TENSP']) . '" loading="lazy">
                             <p>' . htmlspecialchars($row['TENSP']) . '</p>

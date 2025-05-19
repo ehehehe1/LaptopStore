@@ -18,9 +18,11 @@ $result = $conn->query($sql);
 <!-- Thanh tìm kiếm -->
 <div class="product-list" id="product-results">
   <?php while ($row = $result->fetch_assoc()): ?>
-    <a href="/LaptopStore-master/LaptopStore/Store/layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" onclick="return showModal(this.href)" style="text-decoration: none; color: inherit;">
+
+    <a href="layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" onclick="return showModal(this.href)" style="text-decoration: none; color: inherit;">
+
       <div class="product">
-        <img src="/LaptopStore-master/LaptopStore/Store/assets/img/product/<?php echo htmlspecialchars($row['IMG']); ?>" alt="<?php echo htmlspecialchars($row['TENSP']); ?>">
+        <img src="../assets/img/product/<?php echo htmlspecialchars($row['IMG']); ?>" alt="<?php echo htmlspecialchars($row['TENSP']); ?>">
         <p><?php echo htmlspecialchars($row['TENSP']); ?></p>
         <!-- Giá sẽ được thêm từ backend trong AJAX -->
       </div>

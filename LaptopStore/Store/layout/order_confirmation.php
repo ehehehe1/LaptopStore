@@ -16,7 +16,7 @@ $order = $stmt->get_result()->fetch_assoc();
 $stmt->close();
 
 if (!$order) {
-    header("Location: /LaptopStore-master/LaptopStore/Store/layout/cart.php");
+    header("Location: cart.php");
     exit;
 }
 ?>
@@ -60,7 +60,7 @@ if (!$order) {
     <p><strong>Địa chỉ giao hàng:</strong> <?php echo htmlspecialchars($order['DIACHI']); ?></p>
     <p><strong>Phương thức thanh toán:</strong> <?php echo $phuongthuc === 'cod' ? 'Tiền mặt (COD)' : 'Thanh toán trực tuyến'; ?></p>
     <p><strong>Trạng thái thanh toán:</strong> <?php echo $thanh_toan_status === 'success' ? 'Thành công' : 'Chưa xử lý'; ?></p>
-    <p><a href="/LaptopStore-master/LaptopStore/Store/index.php">Tiếp tục mua sắm</a></p>
+    <p><a href="../index.php">Tiếp tục mua sắm</a></p>
 </div>
 </body>
 </html>

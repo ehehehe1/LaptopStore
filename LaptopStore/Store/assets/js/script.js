@@ -11,6 +11,7 @@ window.onclick = function(event) {
     modal.style.display = "none";
   }
 }
+<<<<<<< Updated upstream
 
 
 function showmenuMobile() {
@@ -188,6 +189,74 @@ $(document).ready(function() {
                 error: function(xhr) {
                     messageDiv.text('Lỗi: ' + xhr.responseText).show();
                 }
+=======
+function showproductMenu(type) {
+    console.log('Filtering products for type:', type);
+    $.ajax({
+        type: 'POST',
+        url: 'layout/fetch_products.php',
+        data: {
+            type: type,
+            page: 1,
+            paginate: true // Thêm cờ để bật phân trang
+        },
+        dataType: 'json',
+        success: function(response) {
+            console.log('Fetch products response:', response);
+            if (response.success) {
+                $('#product-container').html(response.html);
+                $('#pagination').html(response.pagination);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: response.error
+                });
+            }
+        },
+        error: function(xhr) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi server',
+                text: 'Lỗi: ' + xhr.responseText
+            });
+        }
+    });
+}
+
+// Xử lý phân trang
+$(document).on('click', '.pagination a', function(e) {
+    e.preventDefault();
+    var page = $(this).data('page');
+    var type = $(this).data('type') || '';
+    console.log('Loading page:', page, 'Type:', type);
+    $.ajax({
+        type: 'POST',
+        url: 'layout/fetch_products.php',
+        data: {
+            type: type,
+            page: page,
+            paginate: true
+        },
+        dataType: 'json',
+        success: function(response) {
+            if (response.success) {
+                $('#product-container').html(response.html);
+                $('#pagination').html(response.pagination);
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Lỗi',
+                    text: response.error
+                });
+            }
+        },
+        error: function(xhr) {
+            Swal.fire({
+                icon: 'error',
+                title: 'Lỗi server',
+                text: 'Lỗi: ' + xhr.responseText
+>>>>>>> Stashed changes
             });
         }
     });

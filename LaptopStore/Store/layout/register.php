@@ -154,7 +154,7 @@ $(document).ready(function() {
         if (isValid) {
             $.ajax({
                 type: "POST",
-                url: "/LaptopStore-master/LaptopStore/Store/layout/register_ajax.php",
+                url: "register_ajax.php",
                 data: {
                     registerUsername: Username_reg,
                     registerName: Name_reg,
@@ -168,7 +168,7 @@ $(document).ready(function() {
                     var messageDiv = $('#message');
                     if (response.success) {
                         messageDiv.html('<p class="success">' + response.message + '</p>');
-                        setTimeout(function() { window.location.href = '/LaptopStore-master/LaptopStore/Store/layout/login.php'; }, 2000);
+                        setTimeout(function() { window.location.href = 'login.php'; }, 2000);
                     } else {
                         messageDiv.html('<p class="error">' + response.error + '</p>');
                     }

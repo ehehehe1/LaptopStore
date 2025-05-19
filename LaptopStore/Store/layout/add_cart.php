@@ -162,7 +162,7 @@ try {
     echo json_encode([
         "success" => true,
         "message" => "Thêm vào giỏ hàng thành công!",
-        "redirect" => "/LaptopStore-master/LaptopStore/Store/layout/cart.php"
+        "redirect" => "layout/cart.php"
     ]);
 
 } catch (Exception $e) {
