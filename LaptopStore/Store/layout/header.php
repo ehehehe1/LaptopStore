@@ -12,9 +12,9 @@ ob_start();
     <title>Laptop Store</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap">
-    <link type="text/css" rel="stylesheet" href="../assets/css/style.css">
-    <link type="text/css" rel="stylesheet" href="../assets/css/form.css">
-    <link rel="stylesheet" href="../assets/css/responsive.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/form.css">
+    <link rel="stylesheet" href="assets/css/responsive.css">
 </head>
 <body>
     <div class="header">
@@ -146,7 +146,7 @@ ob_start();
             <?php endif; ?>
         }
     </script>
-     <script src="../assets/js/script.js"></script>
+     <script src="assets/js/script.js"></script>
 </body>
 </html>
 

@@ -19,7 +19,7 @@ $result = $conn->query($sql);
     <title>Danh sách sản phẩm</title>
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css">
-    <link type="text/css" rel="stylesheet" href="../assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
     <style>
         .container {
             max-width: 1200px;
@@ -342,7 +342,7 @@ $result = $conn->query($sql);
             <?php if ($result->num_rows > 0): ?>
                 <?php while ($row = $result->fetch_assoc()): ?>
 
-                    <a href="chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" class="product-link"
+                    <a href="layout/chitietsp.php?masp=<?php echo $row['MASP']; ?>" class="product-link"
                         style="text-decoration: none; color: inherit;">
                         <div class="product">
                             <img src="assets/img/product/<?php echo htmlspecialchars($row['IMG']); ?>"

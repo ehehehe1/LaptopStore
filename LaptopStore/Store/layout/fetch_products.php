@@ -48,7 +48,7 @@ try {
     $html = '';
     if ($result->num_rows > 0) {
         while ($product = $result->fetch_assoc()) {
-            $imageSrc = $product['IMG'] ? '../assets/img/product/' . htmlspecialchars($product['IMG']) : '../assets/img/product/default-product.jpg';
+            $imageSrc = $product['IMG'] ? 'assets/img/product/' . htmlspecialchars($product['IMG']) : 'assets/img/product/default-product.jpg';
             $html .= '
 
                 <a href="layout/chitietsp.php?masp=' . htmlspecialchars($product['MASP']) . '" class="product-link" style="text-decoration: none; color: inherit;">

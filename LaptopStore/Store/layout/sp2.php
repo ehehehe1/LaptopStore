@@ -15,7 +15,7 @@ $result = $conn->query($sql);
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Danh sách sản phẩm</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-    <link type="text/css" rel="stylesheet" href="../assets/css/style.css">
+    <link type="text/css" rel="stylesheet" href="assets/css/style.css">
     <style>
         .product-list {
             display: grid;
@@ -185,7 +185,7 @@ $result = $conn->query($sql);
         <?php while ($row = $result->fetch_assoc()): ?>
             <a href="layout/chitietsp.php?masp=<?php echo htmlspecialchars($row['MASP']); ?>" onclick="return showModal(this.href)" style="text-decoration: none; color: inherit;">
                 <div class="product">
-                    <img src="../assets/img/product/<?php echo htmlspecialchars($row['IMG']); ?>" alt="<?php echo htmlspecialchars($row['TENSP']); ?>">
+                    <img src="assets/img/product/<?php echo htmlspecialchars($row['IMG']); ?>" alt="<?php echo htmlspecialchars($row['TENSP']); ?>">
                     <p><?php echo htmlspecialchars($row['TENSP']); ?></p>
                     <p class="price"><?php echo number_format($row['GIABAN'], 0, ',', '.') . ' đ'; ?></p>
                 </div>
